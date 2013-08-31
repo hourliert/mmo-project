@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MMO</title>
+		<link rel="stylesheet" href="stylesheets/inGame.css" />
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script src='javascripts/include/constantes.js'></script>
+		<script src='javascripts/include/async.js'></script>
+	</head>
+       
+	<body>		   
+       	<h3>Bienvenue <%= login %> - Dev</h3>
+       	
+       	<div id='chargement-mmo'>
+       		<div id='progressText'>
+       			Chargement des données du jeu
+       		</div>
+	       	<progress id='progressBarre' value="0" max="100">
+	       	</progress>
+       	</div> <!--fin chargement-mmo -->
+       	
+       	<div id='mmo' style='display: none;'>
+	       	<nav id='menu'>
+	       		<ul>
+	       			<li class='bouton' id='bouton-jeu'>Jeu</li>
+	       			<li class='bouton' id='bouton-parametre'>Paramètres</li>
+	       			<% if (droitEditeur == 1) {%>
+	       				<li class='bouton' id='bouton-editeur-carte'>Editeur de carte</li>
+	       			<% } %>
+	       		</ul>
+	       	</nav>
+	       	
+	       	<div id='zone-tchat'>
+	       		Tchat
+	       		<ul id='messages-tchat'>
+	       		</ul>
+	       		<form id='envoi-tchat' method="post">
+	       			<input type="text" id='message-tchat' placeholder="Votre message ici" autocomplete="off" />
+	       			<input type='submit' id="message-submit" value='->' />
+	       		</form>
+	       	</div> <!-- fin tchat -->
+	       	
+	       	<div id='zone-jeu' class='zone-ecran'>
+				<canvas id='background'>Veuillez mettre à jours votre navigateur</canvas>
+				<canvas id='objets'>Veuillez mettre à jours votre navigateur</canvas>
+		     	<!-- <canvas id='joueurs'>Veuillez mettre à jours votre navigateur</canvas> -->
+		     	
+		     	<div id='change-zone' style='display: none;'>
+		     		Developpement
+		     	</div>
+		     	
+		     	<div id='latence'>
+		     		Latence moyenne :
+		     	</div> <!--fin latence-->
+	      	</div> <!--fin zone-jeu-->
+	      	
+	      	<div id='zone-parametre' class='boite-dialogue' style='display: none;'>
+	      		<form id='form-parametre' method="post">
+					<label for='largeurEcran'>Largeur d'écran (en cases)</label>
+					<input type="number" name="largeurEcran" id='largeurEcran' value='30' />
+					<label for='hauteurEcran'>Hauteur d'écran (en cases)</label>
+					<input type="number" name="hauteurEcran" id='hauteurEcran' value='17'  />
+					<label for='position_ecran_x'>Position du personnage par rapport à la bordure à gauche (en cases)</label>
+					<input type="number" name="position_ecran_x" id='position_ecran_x' value='15'  />
+					<label for='position_ecran_y'>Position du personnage par rapport à la bordure en haut (en cases)</label>
+					<input type="number" name="position_ecran_y" id='position_ecran_y' value='8'  />
+					
+					<input type="submit" id='submit-parametre' value="Valider">
+					<div id='probleme-parametre'>
+					</div>
+				</form>
+	      	</div> <!--fin zone-parametre-->
+	      	
+	      	<% if (droitEditeur == 1) {%>
+		      	<div id='editeur-map' style='display: none;' class='zone-ecran'>
+		      		<div id='rendu'>
+		      			<canvas id='editeur'>Veuillez mettre à jours votre navigateur</canvas>
+		      		</div>
+		      		<div id='option-edition'>
+			      		<button id='annuleAction'>Annuler la dernière action</button>
+		      			<form id='mode-camera'>
+			      			<input type="radio" name="camera" value="move" checked="checked">Camera mobile<br>
+							<input type="radio" name="camera" value="set">Camera fixe et saisie<br>
+						</form>
+		      			<div id='palette-field'>
+			      			Palette<br />
+				      		<canvas id='palette'>Veuillez mettre à jours votre navigateur</canvas>
+				      		<br />Tuile Selectionnée<br />
+				      		<canvas id='tuileSelect'>Veuillez mettre à jours votre navigateur</canvas>
+			      		</div>
+			      		<div id='collision-field' style='display: none;'>
+			      			Collision<br />
+			      			<form id='mode-collision'>
+				      			<input type="radio" name="collision" value="0" checked="checked"><img src='images/divers/pas_collision.png' alt='pas_collision' /> Pas de collision<br>
+								<input type="radio" name="collision" value="1"><img src='images/divers/collision.png' alt='collision' /> Collision<br>
+								<input type="radio" name="collision" value="2"><img src='images/divers/fore.png' alt='fore' /> Case au premier plan<br>
+							</form>
+			      		</div>
+			      		<div id='toSauv'>Aucune modification effectuée</div>
+			      		<form id='mode-edit'>
+			      			<input type="radio" name="ground" value="background" checked="checked">Background<br>
+							<input type="radio" name="ground" value="foreground">Foreground<br>
+							<input type="radio" name="ground" value="collision">Mapping des collisions<br>
+			      		</form>
+			      		<div id='info-map'>
+			      			Position du pointeur de la souris
+			      		</div>
+			      		<div id='jumPos'>
+			      			<form id='jump-field'>
+			      				Jump en x :<input type="text" id='posX'><br/>
+								Jump en y :<input type="text" id='posY'>
+								<input type="submit" id='jump' value="Jump !">
+			      			</form>
+			      		</div>
+			      		<div id='import-export'>
+			      			<button id='sauvMapDB'>Sauvegarde de la Map en DB</button>
+			      		</div>
+			      		
+		      		</div> <!--fin option-editeur-->
+		      	</div> <!--fin editeur-map-->
+	      	<% } %>
+      	</div> <!--fin mmo-->
+
+		<!--JEU-->
+		<script src='javascripts/class/iocommunication.js'></script>
+		<script src="javascripts/class/tileset.class.js"></script>
+		<script src="javascripts/class/joueur.class.js"></script>
+		<script src="javascripts/class/personnages.class.js"></script>
+		<script src="javascripts/class/foreground.class.js"></script>
+		<script src="javascripts/class/objetsDyn.class.js"></script>
+		<script src="javascripts/class/map.class.js"></script>
+		<!--EDITEUR-->
+		<% if (droitEditeur == 1) {%>
+			<script src="javascripts/class/editeur.class.js"></script>
+		<% } %>
+		<!--TCHAT-->
+		<script src="javascripts/class/tchat.class.js"></script>
+		<!--MMO-->
+		<script src="javascripts/mmo.js"></script>
+		
+		<!-- GA -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-43559179-3', 'cnode.fr');
+		  ga('send', 'pageview');
+		
+		</script>
+	</body>
+</html>

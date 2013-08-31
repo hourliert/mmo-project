@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MMO - Inscription</title>
+		<link rel="stylesheet" href="stylesheets/style.css" />
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	</head>
+       
+	<body>	        
+       	<h3>Page d'inscription</h3>
+       	
+       	<div id='inscription-zone'>
+			<form id='form1' method='post' action='/valideInscription'>
+				<label for='login'>Nom de compte : </label>
+				<span id='login_dispo'>
+				</span>
+				<input type="text" name="login" id='login' />
+				<label for='email'>Email : </label>
+				<span id='email_dispo'>
+				</span>
+				<input type="email" name="email" id='email' />
+				<label for='password'>Mot de passe : </label>
+				<input type="password" name="password" id='password'/>.
+				<label for='password'>Mot de passe (bis): </label>
+				<input type="password" name="passwordbis" id='passwordbis'/>
+				 
+				<div id="bas">
+					<a href='/' id='inscription'>Retour</a>
+					<input type="submit" id='submit' value="Valider">
+				</div> <!--/bas --> 
+			</form>
+		</div> <!--/connexion -->  
+		
+		<div id='techno'>
+			<p>Powered by : </p>
+			<img src='images/divers/html5_logo.png' alt='html5' />
+			<img src='images/divers/css3_logo.png' alt='css3' />
+			<img src='images/divers/JavaScript_logo.png' alt='JavaScript' />
+			<img src='images/divers/jquery_logo.png' alt='JQuery' />
+			<img src='images/divers/Nodejs_logo.png' alt='NodeJS' />
+			<img src='images/divers/logo-mysql.png' alt='MySQL' />
+		</div>	<!--/techno --> 	
+
+		<div id='copyright'>
+			<p>Copyright &copy; Thomas Hourlier <a href='apropos.html'>A propos</a></p>
+		</div>	<!--/copyright -->
+		
+		<script>
+			var valider = $('#submit');
+			var login_field = $('#login');
+			var email_field = $('#email');
+			var login_dispo = false;
+			var email_dispo = false;
+			
+			var span_login = $('#login_dispo');
+			var span_email = $('#email_dispo');
+			
+			if ($('#erreur').length){
+				$('#erreur').html("");
+			}
+			if (span_login.length){
+				span_login.html("");
+			}
+			if (span_email.length){
+				span_email.html("");
+			}
+			
+			login_field.change(function(){
+				var login = $('#login').val();
+				
+				$.ajax({
+					url : '/loginDispo',
+					type : 'POST',
+					data: {'login' : login},
+					dataType: "json"
+				}).success(function(data){
+					if (data.dispo){
+						login_dispo = true;
+						span_login.html(' Disponnible');
+						span_login.css('color','green');
+					} else {
+						span_login.html(' Indisponnible');
+						span_login.css('color','red');
+					}
+				});
+			})
+			
+			email_field.change(function(){
+				var email = $('#email').val();
+				
+				$.ajax({
+					url : '/emailDispo',
+					type : 'POST',
+					data: {'email' : email},
+					dataType: "json"
+				}).success(function(data){
+					if (data.dispo){
+						email_dispo = true;
+						span_email.html(' Disponnible');
+						span_email.css('color','green');
+					} else {
+						span_email.html(' Indisponnible');
+						span_email.css('color','red');
+					}
+				});
+			})
+			
+			valider.on('click',function(){
+				var email = $('#email').val(),
+					login = $('#login').val(),
+					pass = $('#password').val(),
+					passbis = $('#passwordbis').val();
+					
+				if (pass != passbis){
+					if (!$('#erreur').length){
+						$('#bas').append("<div id='erreur'>Les mots de passe ne correspondent pas</div>");
+					} else {
+						$('#erreur').html("<div id='erreur'>Les mots de passe ne correspondent pas</div>");
+					}
+					return false;
+				}
+				if (!login_dispo || !email_dispo){
+					return false;
+				}
+			});
+		</script> 
+	</body>
+</html>

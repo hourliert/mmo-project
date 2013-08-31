@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MMO - Creation de Personnage</title>
+		<link rel="stylesheet" href="stylesheets/style.css" />
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	</head>
+       
+	<body>	        
+       	<h3>Création de personnage</h3>
+       	
+       	<div id='personnage-zone'>
+			<form id='form1' method='post' action='/validePerso'>
+				<label for='nom'>Nom du personnage : </label>
+				<span id='nom_dispo'>
+				</span>
+				<input type="text" name="nom" id='nom' />
+				<p>Choix de l'apparence : </p>
+				<input type="radio" name="apparence" value="perso.png" checked="checked"><img src='images/sprits/perso_one.png' alt='perso' /><br>
+				<input type="radio" name="apparence" value="naruto.png"><img src='images/sprits/naruto_one.png' alt='naruto' /><br>
+				<input type="radio" name="apparence" value="zelda.png"><img src='images/sprits/zelda_one.png' alt='zelda' />
+				 
+				<div id="bas">
+					<a href='/' id='inscription'>Retour</a>
+					<input type="submit" id='submit' value="Valider">
+				</div> <!--/bas --> 
+			</form>
+		</div> <!--/connexion -->  
+		
+		<div id='techno'>
+			<p>Powered by : </p>
+			<img src='images/divers/html5_logo.png' alt='html5' />
+			<img src='images/divers/css3_logo.png' alt='css3' />
+			<img src='images/divers/JavaScript_logo.png' alt='JavaScript' />
+			<img src='images/divers/jquery_logo.png' alt='JQuery' />
+			<img src='images/divers/Nodejs_logo.png' alt='NodeJS' />
+			<img src='images/divers/logo-mysql.png' alt='MySQL' />
+		</div>	<!--/techno --> 	
+
+		<div id='copyright'>
+			<p>Copyright &copy; Thomas Hourlier <a href='apropos.html'>A propos</a></p>
+		</div>	<!--/copyright -->
+		
+		<script>
+			var valider = $('#submit');
+			var nom_field = $('#nom');
+			var nom_dispo = false;
+			var span_nom = $('#nom_dispo');
+			var form = $('#form1');
+			var image = $('input[name=apparence]:checked').val();
+		
+			form.change(function(){
+				image = $('input[name=apparence]:checked').val();
+			})
+			
+			nom_field.change(function(){
+				var nom = $('#nom').val();
+				
+				$.ajax({
+					url : '/nomDispo',
+					type : 'POST',
+					data: {'nom' : nom},
+					dataType: "json"
+				}).success(function(data){
+					if (data.dispo){
+						nom_dispo = true;
+						span_nom.html(' Disponnible');
+						span_nom.css('color','green');
+					} else {
+						span_nom.html(' Indisponnible');
+						span_nom.css('color','red');
+					}
+				});
+			});
+			
+			valider.on('click',function(){
+				if (!nom_dispo){
+					return false;
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

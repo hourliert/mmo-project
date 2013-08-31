@@ -1,0 +1,316 @@
+/*
+ * Site
+ */
+body{
+	overflow: hidden;
+	color: #444;
+	background: #f0f0f0;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/*
+ * barre chargement
+ */
+progress{
+    display: inline-block;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+    width: 300px;
+    height: 20px;
+    padding: 3px 3px 2px 3px;
+    background: #333; 
+    background: -webkit-linear-gradient(#2d2d2d,#444);
+    background:    -moz-linear-gradient(#2d2d2d,#444);
+    background:      -o-linear-gradient(#2d2d2d,#444);
+    background:         linear-gradient(#2d2d2d,#444);
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 15px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.2);   
+}
+#chargement-mmo{
+	text-align: center;
+	margin: auto;
+	margin-top: 15%;
+}
+progress::-moz-progress-bar{
+    border-radius:10px;
+    background: #09c;
+    background: 
+      -moz-repeating-linear-gradient(
+        45deg, 
+        rgba(255,255,255,.2) 0,
+        rgba(255,255,255,.2) 10px, 
+        rgba(255,255,255,0) 10px,
+        rgba(255,255,255,0) 20px
+      ),
+      -moz-linear-gradient(
+        rgba(255,255,255,.1) 50%,
+        rgba(255,255,255,0) 60%
+      ),
+      #09c;
+    background: 
+      repeating-linear-gradient(
+        45deg, 
+        rgba(255,255,255,.2) 0,
+        rgba(255,255,255,.2) 10px, 
+        rgba(255,255,255,0) 10px,
+        rgba(255,255,255,0) 20px
+      ),
+      linear-gradient(
+        rgba(255,255,255,.1) 50%,
+        rgba(255,255,255,0) 60%
+      ),
+      #09c;
+    background-size: 300px 20px, auto, auto;
+    background-position: -300px 0, top, top;
+    background-position: top right, top, top;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 
+                0 -1px 0 rgba(0,0,0,.8) inset,
+                0 0 2px black;
+  
+}
+progress::-webkit-progress-value{
+    border-radius:10px;
+    background: #09c;
+    background: 
+      repeating-linear-gradient(
+        45deg, 
+        rgba(255,255,255,.2) 0,
+        rgba(255,255,255,.2) 10px, 
+        rgba(255,255,255,0) 10px,
+        rgba(255,255,255,0) 20px
+      ),
+      linear-gradient(
+        rgba(255,255,255,.1) 50%,
+        rgba(255,255,255,0) 60%
+      ),
+      #09c;
+    background-size: 300px 20px, auto, auto;
+    background-position: -300px 0, top, top;
+    background-position: top right, top, top;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 
+                0 -1px 0 rgba(0,0,0,.8) inset,
+                0 0 2px black;
+  
+}
+progress::-webkit-progress-bar{
+    background: transparent;
+}
+
+/*
+ * titre
+ */
+h3{
+	text-align: center;
+}
+
+
+/*
+ * UI
+ */
+/*
+ * latence
+ */
+#latence{
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	border : solid 1px black;
+	width: 135px;
+}
+
+/*
+ * changement zone
+ */
+#change-zone{
+	width: 150px;
+	position: absolute;
+	height: 25px;
+	line-height: 25px;
+	color: #444;
+	background: #f0f0f0;
+	z-index: 100;
+	left : 45%;
+	top : 15%;
+	border : solid 1px black;
+	border-radius: 5px;
+	padding: 10px;	
+	
+}
+
+/*
+ * box de dialogue
+ */
+.boite-dialogue{
+	width: 500px;
+	position: absolute;
+	height: 300px;
+	color: #444;
+	background: #f0f0f0;
+	z-index: 100;
+	left : 30%;
+	top : 25%;
+	border : solid 1px black;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.boite-dialogue label{
+	display: inline-block;
+	width: 300px;
+	margin: auto;
+	margin-bottom: 15px;
+	
+}
+
+#probleme-parametre{
+	color: red;
+}
+
+.boite-dialogue input{
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    outline: none;
+}
+
+.boite-dialogue input[type=submit] {
+    margin-left: 40%;
+    margin-top: 50px;
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #acd6ef;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#acd6ef), to(#6ec2e8));
+    background-image: -moz-linear-gradient(top left 90deg, #acd6ef 0%, #6ec2e8 100%);
+    background-image: linear-gradient(top left 90deg, #acd6ef 0%, #6ec2e8 100%);
+    border-radius: 15px;
+    border: 1px solid #66add6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+    cursor: pointer;
+}
+.boite-dialogue input[type=submit]:hover {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#b6e2ff), to(#6ec2e8));
+    background-image: -moz-linear-gradient(top left 90deg, #b6e2ff 0%, #6ec2e8 100%);
+    background-image: linear-gradient(top left 90deg, #b6e2ff 0%, #6ec2e8 100%);
+}
+.boite-dialogue input[type=submit]:active {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#6ec2e8), to(#b6e2ff));
+    background-image: -moz-linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
+    background-image: linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
+}
+
+/*
+ * TCHAT
+ */
+#zone-tchat{
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	border : solid 1px black;
+	width: 180px;
+}
+#messages-tchat{
+	list-style: none;
+	height: 200px;
+	border-top: solid 1px black;
+	border-bottom: solid 1px black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	margin : 0;
+	padding: 5px;
+}
+#message-submit{
+	width: 25px;
+}
+#message-tchat{
+	width: 80%
+}
+
+
+
+
+/*
+ * NAV
+ */
+#menu{
+	position: absolute;
+	top : 50px;
+	left : -35px;
+	width : 150px;
+}
+#menu ul{
+	list-style: none;
+}
+.bouton{
+	text-align: center;
+	padding: 10px;
+	border: solid 1px black;
+}
+.bouton:hover{
+	padding: 10px;
+	border: solid 1px black;
+	color: #f0f0f0;
+	background: #444;
+}
+
+/*
+ * Jeu 
+ */
+
+/*Canvas*/
+#background{
+	border: solid 1px black;
+	left: 200px;
+	position: absolute;
+	z-index: 1;
+}
+
+#objets{
+	border: solid 1px black;
+	left: 200px;
+	position: absolute;
+	z-index: 2;
+}
+
+#joueurs{
+	border: solid 1px black;
+	left: 200px;
+	position: absolute;
+	z-index: 2;
+}
+
+/*
+ * Editeur
+ */
+#editeur{
+	border: solid 1px black;
+	left: 200px;
+	position: absolute;
+	z-index: 1;
+}
+#option-edition{
+	position: absolute;
+	left: 860px;
+}
+#palette{
+	margin : 5px;
+	border: solid 1px black;
+}
+#tuileSelect{
+	margin : 5px;
+	border: solid 1px black;
+}
+#info-map{
+	margin : 5px;
+	padding : 5px;
+	border: solid 1px black;
+}
+
